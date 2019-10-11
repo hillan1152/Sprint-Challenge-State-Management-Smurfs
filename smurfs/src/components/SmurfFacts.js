@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Fact from './Fact';
+import  { Form } from './Form'
 
 import { fetchFacts, useFacts } from '../actions';
 
@@ -16,8 +17,8 @@ const SmurfFacts = (props) => {
 
     return(
         <div>
+            <Form/>
             {props.error && <p>{props.error}</p>}
-            {console.log('made it here div', props)}
             {props.smurfs.map(fact => {
                return <Fact key={fact.id} fact={fact}/>
             })}
@@ -26,7 +27,6 @@ const SmurfFacts = (props) => {
 }
 
 const mapStateToProps = state => {
-    console.log(state)
     return {
         smurfs: state.smurfs,
         isFetching: state.isFetching,
@@ -34,4 +34,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {fetchFacts, useFacts})(SmurfFacts);
+export default connect(mapStateToProps, {fetchFacts, useFacts, Form})(SmurfFacts);
