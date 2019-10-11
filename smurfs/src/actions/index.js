@@ -13,3 +13,20 @@ export const fetchFacts = () => {
     }
 }
 
+//POST REQUEST
+
+export const useFacts = () => {
+    return(dispatch) => {
+    axios
+        .post('http://localhost:3333/smurfs',{
+            name: 'John',
+            age: 897,
+            height: '2inches',
+            id: Date.now()
+        })
+        .then(res => console.log('what am i doing?',res))
+        .catch(err => console.log(err))
+    }}
+
+    // dispatch({ type: FETCH_SUCCESS, payload: res.data })
+    // dispatch({ type: FETCH_FAILURE, payload: err.response})

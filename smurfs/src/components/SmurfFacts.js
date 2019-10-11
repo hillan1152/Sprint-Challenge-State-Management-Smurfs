@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Fact from './Fact';
 
-import { fetchFacts } from '../actions';
+import { fetchFacts, useFacts } from '../actions';
 
 const SmurfFacts = (props) => {
     useEffect(() => {
         props.fetchFacts();
+        props.useFacts();
     }, []);
 
     if(props.isFetching) {
@@ -33,4 +34,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {fetchFacts})(SmurfFacts);
+export default connect(mapStateToProps, {fetchFacts, useFacts})(SmurfFacts);

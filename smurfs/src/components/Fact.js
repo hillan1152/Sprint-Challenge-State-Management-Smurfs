@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Fact = (props) => {
-    console.log('made it here',props)
+    console.log('made it here', props)
     return (
         <div>
             <p>{props.fact.name}</p>
