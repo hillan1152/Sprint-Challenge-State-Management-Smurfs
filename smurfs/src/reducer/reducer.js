@@ -1,5 +1,7 @@
 const initialState = {
-    smurfs: []
+    smurfs: [], 
+    isFetching: false,
+    error: ''
 }
 
 const reducer = (state = initialState, action) => {
@@ -8,3 +10,5 @@ const reducer = (state = initialState, action) => {
             return state;
     }
 }
+
+export default reducer;
