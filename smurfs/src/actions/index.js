@@ -17,14 +17,3 @@ export const fetchFacts = () => {
 
 //POST REQUEST
 
-export const useFacts = (input) => {
-    return(dispatch) => {
-        dispatch({ type: START_FETCHING})
-    axios
-        .post('http://localhost:3333/smurfs', input)
-        .then(res => dispatch({ type: FETCH_SUCCESS, payload: res.data }))
-        .catch(err => console.log(err))
-    }}
-
-    
-    // dispatch({ type: FETCH_FAILURE, payload: err.response})

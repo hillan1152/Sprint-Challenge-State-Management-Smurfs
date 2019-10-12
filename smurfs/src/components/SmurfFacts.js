@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Fact from './Fact';
-import  { Form } from './Form'
+import FormikForm from '../components/Form';
 
 import { fetchFacts, useFacts } from '../actions';
 
 const SmurfFacts = (props) => {
     useEffect(() => {
         props.fetchFacts();
-        props.useFacts();
     }, []);
 
     if(props.isFetching) {
@@ -17,7 +16,7 @@ const SmurfFacts = (props) => {
 
     return(
         <div>
-            <Form/>
+            <FormikForm/>
             {props.error && <p>{props.error}</p>}
             {props.smurfs.map(fact => {
                return <Fact key={fact.id} fact={fact}/>
@@ -34,4 +33,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {fetchFacts, useFacts, Form})(SmurfFacts);
+export default connect(mapStateToProps, {fetchFacts, FormikForm })(SmurfFacts);

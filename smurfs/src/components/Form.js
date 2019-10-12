@@ -1,49 +1,68 @@
 import React, { useState, useEffect } from 'react';
-import { useFacts } from '../actions';
+import { withFormik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
 
 
-export const Form = () => {
-    let [input, setInput] = useState({
-        name: '',
-        age: '',
-        height: '',
-    });
+
+const SmurfForm = ({ values, errors, touched, status }) => {
+    let [input, setInput] = useState([]);
+    useEffect(
+        () => {
+            status && setInput(input => [...input, status])
+        },
+        [status]
+    );
     
-    
-
-    const handleSubmit = e => {
-        e.preventDefault();
-        
-    }
-
-    const handleChange = e => {
-        setInput({ ...input, [e.target.name]: e.target.value, id: Date.now()  });
-      };
-
-
     return(
-        
-        <form onSubmit={e => handleSubmit(e)}> 
-            <input 
-                type= "text"
-                name= "name" 
-                placeholder= "Name" 
-                onChange= {e => handleChange(e)}  
-            />
-            <input 
-                type= "number"
-                name= "age" 
-                placeholder= "Age" 
-                onChange= {e => handleChange(e)}  
-            />
-            <input 
-                type= "text"
-                name= "height" 
-                placeholder= "Height" 
-                onChange= {e => handleChange(e)}  
-            />
-            <button>Submit</button>
-        </form>
-    )
-}
+        <div className="smurf-form">
+            <Form> 
+                <Field 
+                    type= "text"
+                    name= "name" 
+                    placeholder= "Name"    
+                />
+                <Field 
+                    type= "number"
+                    name= "age" 
+                    placeholder= "Age"    
+                />
+                <Field 
+                    type= "text"
+                    name= "height" 
+                    placeholder= "Height"   
+                />
+                <button className="submit" type="submit">Submit</button>
+            </Form>
+            {input.map(input => (
+                <ul key={input.id}>
+                    <li>Name: {input.name}</li>
+                    <li>Age: {input.age}</li>
+                    <li>Height: {input.height}</li>
+                </ul>
+            ))}
+        </div>
+    );
+};
+
+const FormikForm = withFormik({
+    mapPropsToValues({ name, age, height }) {
+        return {
+            name: name || "",
+            age: age || "",
+            height: height || ""
+        };
+    },
+    handleSubmit(values, { setInput }){
+        axios
+            .post('http://localhost:3333/smurfs', values)
+            .then(res => {
+                setInput(res.data);
+                console.log(res);
+            })
+            .catch(err => console.log('ERROR', err.res))
+    }
+})(SmurfForm);
+
+export default FormikForm;
 
