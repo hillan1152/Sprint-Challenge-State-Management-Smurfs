@@ -13,7 +13,7 @@ export const fetchSmurfs = () => dispatch => {
 }
 
 export const postSmurfs = () => dispatch => {
-    dispatch({ type: START_POSTING })
+    dispatch({ type: FETCH_SUCCESS })
     axios.post('http://localhost:3333/smurfs')
         .then(res => console.log(res))
         .catch(err => dispatch({ type: FETCH_FAILURE, payload: err.data}))

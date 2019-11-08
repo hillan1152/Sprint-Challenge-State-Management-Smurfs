@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field } from 'formik';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 
-
-const SmurfForm = ({ values, errors, touched, status }) => {
+const SmurfForm = (props, { values, errors, touched, status }) => {
     let [input, setInput] = useState([]);
     useEffect(
         () => {
@@ -55,15 +55,17 @@ const FormikForm = withFormik({
     handleSubmit(values, { setInput }){
         axios
             .post('http://localhost:3333/smurfs', values)
-            .then(res => {
-                setInput(res.data);
-                console.log(res);
-            })
+            .then(res => setInput(res.smurfs))
             .catch(err => console.log('ERROR', err.res))
     }
 })(SmurfForm);
 
-export default FormikForm;
+const mapStateToProps = state => {
+    return {
+        smurfs: state.smurfs
+    }
+}
+export default connect(mapStateToProps, {})(FormikForm);
 
 
 

@@ -6,6 +6,7 @@ import { fetchSmurfs } from '../actions';
 
 // Components
 import Facts from './Facts';
+import FormikForm from './Form';
 
 const SmurfCard = props => {
     useEffect(() => {
@@ -18,6 +19,7 @@ const SmurfCard = props => {
 
     return (
         <div>
+            <FormikForm/>
             {console.log(props)}
             {props.smurfs.map(fact => {
               return <Facts key={fact.id} fact={fact}/>
