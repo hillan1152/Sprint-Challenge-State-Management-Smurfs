@@ -27,13 +27,6 @@ const reducer = (state = initialState, action) => {
                 error: action.payload,
                 isFetching: false
             }
-        case START_POSTING:
-            return {   
-                ...state,
-                isFetching: false,
-                error: '',
-                smurfs: action.payload
-            }
         default:
             return state;
     }
