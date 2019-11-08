@@ -8,13 +8,20 @@ import { fetchSmurfs } from '../actions';
 import Facts from './Facts';
 
 const SmurfCard = props => {
-    console.log(props.name)
     useEffect(() => {
         props.fetchSmurfs();
     }, []);
+
+    if(props.isFetching) {
+        return <h2>Loading...</h2>
+    }
+
     return (
         <div>
-            <Facts />
+            {console.log(props)}
+            {props.smurfs.map(fact => {
+              return <Facts key={fact.id} fact={fact}/>
+            })} 
         </div>
     )
 }
@@ -27,4 +34,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchSmurfs })(SmurfCard)
+export default connect(mapStateToProps, {fetchSmurfs})(SmurfCard)
